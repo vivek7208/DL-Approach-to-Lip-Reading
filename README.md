@@ -41,7 +41,54 @@ The model used in this project is a sequential model, consisting of three main p
 
 3. Dense Layer: The final layer is a Dense layer with a softmax activation function. The number of units in this layer is equal to the size of the vocabulary plus one (for the blank character).
 
-The model uses the CTC (Connectionist Temporal Classification) loss function for training. This is a suitable loss function for sequence prediction problems where the alignment between the input and output is unknown.
+Here is the detailed structure of the model:
+
+```
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv3d (Conv3D)             (None, 75, 46, 140, 128)  3584      
+                                                                 
+ activation (Activation)     (None, 75, 46, 140, 128)  0         
+                                                                 
+ max_pooling3d (MaxPooling3D  (None, 75, 23, 70, 128)  0         
+ )                                                               
+                                                                 
+ conv3d_1 (Conv3D)           (None, 75, 23, 70, 256)   884992    
+                                                                 
+ activation_1 (Activation)   (None, 75, 23, 70, 256)   0         
+                                                                 
+ max_pooling3d_1 (MaxPooling  (None, 75, 11, 35, 256)  0         
+ 3D)                                                             
+                                                                 
+ conv3d_2 (Conv3D)           (None, 75, 11, 35, 75)    518475    
+                                                                 
+ activation_2 (Activation)   (None, 75, 11, 35, 75)    0         
+                                                                 
+ max_pooling3d_2 (MaxPooling  (None, 75, 5, 17, 75)    0         
+ 3D)                                                             
+                                                                 
+ time_distributed (TimeDistr  (None, 75, 6375)         0         
+ ibuted)                                                         
+                                                                 
+ bidirectional (Bidirectiona  (None, 75, 256)          6660096   
+ l)                                                              
+                                                                 
+ dropout (Dropout)           (None, 75, 256)           0         
+                                                                 
+ bidirectional_1 (Bidirectio  (None, 75, 256)          394240   
+ nal)                                                            
+                                                                 
+ dropout_1 (Dropout)         (None, 75, 256)           0         
+                                                                 
+ dense (Dense)               (None, 75, 41)            10537     
+                                                                 
+=================================================================
+Total params: 8,471,924
+Trainable params: 8,471,924
+Non-trainable params: 0
+```
 
 ## Training
 
@@ -60,3 +107,9 @@ The model's predictions can be evaluated using the ground truth text for the vid
 The model can also be evaluated on the test set. The test set is loaded in the same way as the training set. The model's performance on the test set gives an unbiased estimate of its ability to generalize to unseen data.
 
 The project demonstrates the potential of deep learning for lip reading, following the ideas proposed in the referenced paper. The model could potentially be improved by using more data, tuning the hyperparameters, or using a more complex model architecture.
+
+## Model Visualization
+
+Placeholder for GIF showing the model in action:
+
+![Model in Action](path_to_gif.gif)
